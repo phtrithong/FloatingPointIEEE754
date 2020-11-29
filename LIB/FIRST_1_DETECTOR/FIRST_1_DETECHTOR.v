@@ -67,7 +67,10 @@ assign tmp_xor[02] = tmp[02] ^ tmp[03] ;
 assign tmp_xor[01] = tmp[01] ^ tmp[02] ;
 assign tmp_xor[00] = tmp[00] ^ tmp[01] ;
 
-LINE_2_BI LINE_2_BI_0(.in(tmp_xor),.out(out));
+LINE_2_BI	LINE_2_BI_0(
+				.in(tmp_xor),
+				.out(out)
+			);
 
 
 endmodule

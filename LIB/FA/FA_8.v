@@ -15,8 +15,21 @@ output cout;
 
 wire tmp;
 
-FA_4 FA_0(.a(a[3:0]), .b (b[3:0]), .cin(cin),       .s(s[3:0]), .cout(tmp));
-FA_4 FA_1(.a(a[7:4]), .b (b[7:4]), .cin(tmp),    .s(s[7:4]), .cout(cout));
+FA_4	FA_0(
+			.a(a[3:0]), 
+			.b (b[3:0]), 
+			.cin(cin),       
+			.s(s[3:0]), 
+			.cout(tmp)
+		);
+
+FA_4 	FA_1(
+			.a(a[7:4]), 
+			.b (b[7:4]), 
+			.cin(tmp),    
+			.s(s[7:4]), 
+			.cout(cout)
+		);
 
 
 endmodule

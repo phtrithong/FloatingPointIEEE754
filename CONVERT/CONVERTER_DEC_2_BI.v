@@ -23,17 +23,92 @@ wire [10:0] cout_tmp;
 FS_8 EXP(.a(8'b1111_1111), .b(exp_tmp[7:0]), .out(exp[7:0]), .cin(1'b1), .cout(cout));
 // 11.01100111000111110
 // 2^128 / 10^38
-FA_128 F_0(.a({in_frac[126:0],{1{1'b0}}}), .b({{in_frac[127:0]}}), .s(tmp_0[127:0]), .cin(1'b0), .cout(cout_tmp[0]));
-FA_128 F_2(.a(tmp_0[127:0]), .b({{2{1'b0}}, {in_frac[127:2]}}), .s(tmp_2[127:0]), .cin(cout_tmp[0]), .cout(cout_tmp[1]));
-FA_128 F_3(.a(tmp_2[127:0]), .b({{3{1'b0}}, {in_frac[127:3]}}), .s(tmp_3[127:0]), .cin(cout_tmp[1]), .cout(cout_tmp[2]));
-FA_128 F_6(.a(tmp_3[127:0]), .b({{6{1'b0}}, {in_frac[127:6]}}), .s(tmp_6[127:0]), .cin(cout_tmp[2]), .cout(cout_tmp[3]));
-FA_128 F_7(.a(tmp_6[127:0]), .b({{7{1'b0}}, {in_frac[127:7]}}), .s(tmp_7[127:0]), .cin(cout_tmp[3]), .cout(cout_tmp[4]));
-FA_128 F_8(.a(tmp_7[127:0]), .b({{8{1'b0}}, {in_frac[127:8]}}), .s(tmp_8[127:0]), .cin(cout_tmp[4]), .cout(cout_tmp[5]));
-FA_128 F_12(.a(tmp_8[127:0]), .b({{12{1'b0}}, {in_frac[127:12]}}), .s(tmp_12[127:0]), .cin(cout_tmp[5]), .cout(cout_tmp[6]));
-FA_128 F_13(.a(tmp_12[127:0]), .b({{13{1'b0}}, {in_frac[127:13]}}), .s(tmp_13[127:0]), .cin(cout_tmp[6]), .cout(cout_tmp[7]));
-FA_128 F_14(.a(tmp_13[127:0]), .b({{14{1'b0}}, {in_frac[127:14]}}), .s(tmp_14[127:0]), .cin(cout_tmp[7]), .cout(cout_tmp[8]));
-FA_128 F_15(.a(tmp_14[127:0]), .b({{15{1'b0}}, {in_frac[127:15]}}), .s(tmp_15[127:0]), .cin(cout_tmp[8]), .cout(cout_tmp[9]));
-FA_128 F_16(.a(tmp_15[127:0]), .b({{16{1'b0}}, {in_frac[127:16]}}), .s(tmp_16[127:0]), .cin(cout_tmp[9]), .cout(cout_tmp[10]));
+FA_128 	F_0(
+			.a({in_frac[126:0], {1{1'b0}}}), 
+			.b({{in_frac[127:0]}}), 
+			.s(tmp_0[127:0]), 
+			.cin(1'b0), 
+			.cout(cout_tmp[0])
+		);
+
+FA_128 	F_2(
+			.a(tmp_0[127:0]), 
+			.b({{2{1'b0}}, {in_frac[127:2]}}), 
+			.s(tmp_2[127:0]), 
+			.cin(cout_tmp[0]), 
+			.cout(cout_tmp[1])
+		);
+
+FA_128 	F_3(
+			.a(tmp_2[127:0]), 
+			.b({{3{1'b0}}, {in_frac[127:3]}}), 
+			.s(tmp_3[127:0]), 
+			.cin(cout_tmp[1]), 
+			.cout(cout_tmp[2])
+		);
+
+FA_128 	F_6(
+			.a(tmp_3[127:0]), 
+			.b({{6{1'b0}}, {in_frac[127:6]}}), 
+			.s(tmp_6[127:0]), 
+			.cin(cout_tmp[2]), 
+			.cout(cout_tmp[3])
+		);
+
+FA_128 	F_7(
+			.a(tmp_6[127:0]), 
+			.b({{7{1'b0}}, {in_frac[127:7]}}), 
+			.s(tmp_7[127:0]), 
+			.cin(cout_tmp[3]), 
+			.cout(cout_tmp[4])
+		);
+
+FA_128 	F_8(
+			.a(tmp_7[127:0]), 
+			.b({{8{1'b0}}, {in_frac[127:8]}}), 
+			.s(tmp_8[127:0]), 
+			.cin(cout_tmp[4]), 
+			.cout(cout_tmp[5])
+		);
+
+FA_128 	F_12(
+			.a(tmp_8[127:0]), 
+			.b({{12{1'b0}}, {in_frac[127:12]}}), 
+			.s(tmp_12[127:0]), 
+			.cin(cout_tmp[5]), 
+			.cout(cout_tmp[6])
+		);
+
+FA_128 	F_13(
+			.a(tmp_12[127:0]), 
+			.b({{13{1'b0}}, {in_frac[127:13]}}), 
+			.s(tmp_13[127:0]), 
+			.cin(cout_tmp[6]), 
+			.cout(cout_tmp[7])
+		);
+
+FA_128 	F_14(
+			.a(tmp_13[127:0]), 
+			.b({{14{1'b0}}, {in_frac[127:14]}}), 
+			.s(tmp_14[127:0]), 
+			.cin(cout_tmp[7]), 
+			.cout(cout_tmp[8])
+		);
+
+FA_128 	F_15(
+			.a(tmp_14[127:0]), 
+			.b({{15{1'b0}}, {in_frac[127:15]}}), 
+			.s(tmp_15[127:0]), 
+			.cin(cout_tmp[8]), 
+			.cout(cout_tmp[9])
+		);
+
+FA_128 	F_16(
+			.a(tmp_15[127:0]), 
+			.b({{16{1'b0}}, {in_frac[127:16]}}), 
+			.s(tmp_16[127:0]), .cin(cout_tmp[9]), 
+			.cout(cout_tmp[10])
+		);
 
 assign out[31] = sign;
 assign out[22:0] = out_frac_tmp[22:0];

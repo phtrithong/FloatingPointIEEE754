@@ -25,21 +25,43 @@ output [24: 0] out;
 output sign_out;
 
 
-FS_8 FS_8_SHIFT(.a(diff_exp), .b(8'b00011001), .cin(1'b0), .out(shift_tmp), .cout(check_23));
+FS_8    FS_8_SHIFT(
+            .a(diff_exp), 
+            .b(8'b00011001), 
+            .cin(1'b0), 
+            .out(shift_tmp), 
+            .cout(check_23)
+        );
 
-assign shift_num = ({5{!check_23}} & (5'b10111)) | ({5{check_23}} & diff_exp[4:0]);  // 5 bits
+// 5 bits
+assign shift_num = ({5{!check_23}} & (5'b10111)) | ({5{check_23}} & diff_exp[4:0]);  
 
 
-SHIFT_RIGHT shift_fraction_a(.in({8'b0, fraction_a}), .out(fraction_a_32_shift), .shift_num(shift_num));
-SHIFT_RIGHT shift_fraction_b(.in({8'b0, fraction_b}), .out(fraction_b_32_shift), .shift_num(shift_num));
+SHIFT_RIGHT     shift_fraction_a(
+                    .in({8'b0, fraction_a}), 
+                    .out(fraction_a_32_shift), 
+                    .shift_num(shift_num)
+                );
+
+SHIFT_RIGHT     shift_fraction_b(
+                    .in({8'b0, fraction_b}), 
+                    .out(fraction_b_32_shift), 
+                    .shift_num(shift_num)
+                );
 
 
 assign fraction_a_BigALU = ({24{!sign_exp}} & (fraction_a)) | ({24{sign_exp}} & (fraction_a_32_shift[23: 0]));
 assign fraction_b_BigALU = ({24{!sign_exp}} & (fraction_b_32_shift[23: 0])) | ({24{sign_exp}} & (fraction_b));
 
-BigAlu  BigALU_1(.a(fraction_a_BigALU),    .b(fraction_b_BigALU),
-                 .sign_a(sign_a),           .sign_b(sign_b),        .symbol(symbol),
-                 .out(out),                 .sign_out(sign_out));
+BigAlu  BigALU_1(
+            .a(fraction_a_BigALU),    
+            .b(fraction_b_BigALU),
+            .sign_a(sign_a),           
+            .sign_b(sign_b),        
+            .symbol(symbol),
+            .out(out),                 
+            .sign_out(sign_out)
+        );
 
 endmodule
 
@@ -71,20 +93,40 @@ output [24: 0] out;
 output sign_out;
 
 
-SUB_CLA_8 SUB_CLA_8_SHIFT(.iA(diff_exp), .iB(8'b00011001), .iC(1'b0), .oS(shift_tmp), .oC(check_23), .oP(), .oG());
+SUB_CLA_8   SUB_CLA_8_SHIFT(
+                .iA(diff_exp), 
+                .iB(8'b00011001), 
+                .iC(1'b0), 
+                .oS(shift_tmp), 
+                .oC(check_23), .oP(), .oG());
 
 assign shift_num = ({5{!check_23}} & (5'b10111)) | ({5{check_23}} & diff_exp[4:0]);  // 5 bits
 
 
-SHIFT_RIGHT shift_fraction_a(.in({8'b0, fraction_a}), .out(fraction_a_32_shift), .shift_num(shift_num));
-SHIFT_RIGHT shift_fraction_b(.in({8'b0, fraction_b}), .out(fraction_b_32_shift), .shift_num(shift_num));
+SHIFT_RIGHT     shift_fraction_a(
+                    .in({8'b0, fraction_a}), 
+                    .out(fraction_a_32_shift), 
+                    .shift_num(shift_num)
+                );
+
+SHIFT_RIGHT     shift_fraction_b(
+                    .in({8'b0, fraction_b}), 
+                    .out(fraction_b_32_shift), 
+                    .shift_num(shift_num)
+                );
 
 
 assign fraction_a_BigALU = ({24{!sign_exp}} & (fraction_a)) | ({24{sign_exp}} & (fraction_a_32_shift[23: 0]));
 assign fraction_b_BigALU = ({24{!sign_exp}} & (fraction_b_32_shift[23: 0])) | ({24{sign_exp}} & (fraction_b));
 
-BigAlu_CLA  BigALU_CLA_(.a(fraction_a_BigALU),    .b(fraction_b_BigALU),
-                        .sign_a(sign_a),           .sign_b(sign_b),        .symbol(symbol),
-                        .out(out),                 .sign_out(sign_out));
+BigAlu_CLA      BigALU_CLA_(
+                    .a(fraction_a_BigALU),    
+                    .b(fraction_b_BigALU),
+                    .sign_a(sign_a),           
+                    .sign_b(sign_b),        
+                    .symbol(symbol),
+                    .out(out),                 
+                    .sign_out(sign_out)
+                );
 
 endmodule

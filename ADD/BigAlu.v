@@ -1,11 +1,11 @@
 module BigAlu(
-    a,
-    b,
-    sign_a,
-    sign_b,
-    symbol,
-    out,
-    sign_out
+  a,
+  b,
+  sign_a,
+  sign_b,
+  symbol,
+  out,
+  sign_out
 );
 
 parameter DATA_WITDH = 24;
@@ -29,11 +29,36 @@ wire [23: 0] out_plus, out_sub, out_sub_neg, out_sub_pos;
 wire c_plus, c_sub, c_out_sub_neg;
 wire tmp;
 
-FA_24 FA_24_ALU(.a(a), .b(b), .cin(1'b0), .s(out_plus), .cout(c_plus));  // A + B
-FS_24 FS_24_ALU(.a(a), .b(b), .cin(1'b0), .out(out_sub_pos), .cout(c_sub)); // A - B
-FS_24 FS_24_NEG(.a(b), .b(a), .cin(1'b0), .out(out_sub_neg), .cout(c_out_sub_neg)); // B - A
+FA_24   FA_24_ALU(
+          .a(a), 
+          .b(b), 
+          .cin(1'b0), 
+          .s(out_plus), 
+          .cout(c_plus)
+        );  // A + B
 
-SW_24 SW_24_ALU(.in_0(out_sub_pos), .in_1(out_sub_neg), .sel(c_sub), .out(out_sub));
+FS_24   FS_24_ALU(
+          .a(a), 
+          .b(b), 
+          .cin(1'b0), 
+          .out(out_sub_pos), 
+          .cout(c_sub)
+        ); // A - B
+
+FS_24   FS_24_NEG(
+          .a(b), 
+          .b(a), 
+          .cin(1'b0), 
+          .out(out_sub_neg), 
+          .cout(c_out_sub_neg)
+        ); // B - A
+
+SW_24   SW_24_ALU(
+          .in_0(out_sub_pos), 
+          .in_1(out_sub_neg), 
+          .sel(c_sub), 
+          .out(out_sub)
+        );
 
 xor (tmp, c_sub, 1'b1);
 

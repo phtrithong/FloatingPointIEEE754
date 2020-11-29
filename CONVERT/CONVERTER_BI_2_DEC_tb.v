@@ -4,7 +4,12 @@ reg [31:0]in;
 wire [127:0]out_floor, out_frac;
 wire out_sign;
 
-COVERT_BI_2_DEC CONV(.in(in), .out_floor(out_floor), .out_frac(out_frac), .out_sign(out_sign));
+COVERT_BI_2_DEC 	CONV(
+						.in(in), 
+						.out_floor(out_floor), 
+						.out_frac(out_frac), 
+						.out_sign(out_sign)
+					);
 
 initial begin
 
